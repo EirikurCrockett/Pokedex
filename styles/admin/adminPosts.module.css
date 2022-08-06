@@ -1,0 +1,26 @@
+.container{
+    margin: 1rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.btn{
+    margin: 0.5rem 0;
+    min-width: 8rem;
+    min-height: 2rem;
+    color: white;
+    background-color: rgb(64, 64, 255);
+    border: 0.2rem solid black;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem rgb(83, 83, 139) ;
+}
+
+.btn:hover{
+    box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem darkblue;
+}
+
+.btn:active{
+    background-color: rgb(83, 83, 139);
+}

@@ -1,0 +1,34 @@
+.container{
+    margin: 0 auto;
+    width: 85vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card{
+    width: 40vw;
+    margin: 2vh 0;
+}
+
+.cardHead{
+    text-align: center;
+}
+
+.link{
+    color: blue;
+}
+
+.link:visited{
+    color: rgb(101, 3, 182);
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .card{
+        width: 85vw;
+    }
+}

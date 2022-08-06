@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider = "postgresql"
+	url      = env("DATABASE_URL")
+}
+
+
+model Pokemon {
+	id              	Int         @id @default(autoincrement()) 
+	name            	String
+	natDexNum       	Int
+	genus				String
+	height				Float
+	weight				Float
+	genderDifference	Boolean
+	spriteDefault		String
+	spriteShiny			String
+	spriteDefaultF		String?
+	spriteShinyF		String?
+	eggGroups			EggGroup[]
+	types				Type[]
+	abilities			PokemonHaveAbilities[]
+	encounters			Location[]
+	pokedexes			Pokedex[]
+	pokedexEntries		PokedexEntry[]
+	moves				Move[]
+	evolvesFrom			Pokemon?	@relation("EvolutionTree", fields: [evolutionId], references: [id])
+	evolutionId			Int?
+	evolvesTo			Pokemon[]	@relation("EvolutionTree")
+	evolutionMethod		String?
+	hasVariants			Boolean?
+	baseVariant			Pokemon?	@relation("Variants", fields: [variantId], references: [id])
+	variantId			Int?
+	variants			Pokemon[] 	@relation("Variants")
+	@@unique([name])
+	@@unique([natDexNum])
+}
+
+
+
+model Move {
+	id              Int         @id @default(autoincrement()) 
+	name    		String
+	accuracy		Int
+	power			Int
+	pp				Int
+	damageType		String
+	description		String
+	type			Type		@relation(fields: [typeId], references: [id])
+	typeId			Int
+	pokemon			Pokemon[]
+	@@unique([name])
+}
+
+
+model Type {
+	id              Int        	 	@id @default(autoincrement())
+	name			String
+	Strength		Type[]			@relation("StrengthWeakness")
+	weakness		Type[]			@relation("StrengthWeakness")
+	pokemon			Pokemon[]
+	moves			Move[]
+	@@unique([name])
+}
+
+
+model Ability {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	description		String
+	pokemon			PokemonHaveAbilities[]
+	generation		Generation		@relation(fields: [generationId], references: [id])
+	generationId	Int
+	@@unique([name])
+}
+
+model Location {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	encounters		Pokemon[]
+	game			Game			@relation(fields: [gameId], references: [id])
+	gameId			Int
+	@@unique([name, gameId])
+}
+
+
+model Game {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	generation		Generation		@relation(fields: [generationId], references: [id])
+	generationId	Int		
+	locations		Location[]
+	pokedexEntries	PokedexEntry[]
+	versionGroup	VersionGroup?	@relation(fields: [versionGroupId], references: [id])
+	versionGroupId	Int
+	@@unique([name])
+}
+
+model Generation {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	games			Game[]
+	pokedexes		Pokedex[]
+	versionGroups	VersionGroup[]
+	abilities		Ability[]
+	@@unique([name])
+}
+
+model EggGroup {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	pokemon			Pokemon[]
+	@@unique([name])
+}
+
+model VersionGroup {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	generation		Generation?		@relation(fields: [genId], references: [id])
+	genId			Int
+	games			Game[]
+	@@unique([name])
+}
+
+model Pokedex {
+	id              Int         	@id @default(autoincrement())
+	name			String
+	generations		Generation[]
+	pokemon			Pokemon[]
+	@@unique([name])
+}
+
+model PokedexEntry {
+	id              Int         	@id @default(autoincrement())
+	entry			String
+	pokemon			Pokemon			@relation(fields: [pokemonId], references: [id])
+	pokemonId		Int
+	games			Game[]
+	@@unique([entry, pokemonId])
+}
+
+model PokemonHaveAbilities {
+	pokemon			Pokemon			@relation(fields: [pokemonId], references: [id])
+	pokemonId		Int
+	ability			Ability			@relation(fields: [abilityId], references: [id])
+	abilityId		Int
+	hidden			Boolean
+	@@id([pokemonId, abilityId, hidden])
+}
