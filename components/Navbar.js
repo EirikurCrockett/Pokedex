@@ -18,7 +18,7 @@ const Navbar = () => {
             <nav className={style.navbar}>
                 <div className={style.response}>
                     <h3>Pokédex</h3>
-                    <button className={style.icon} on onClick={() => navDrop()}>
+                    <button className={style.icon} onClick={() => navDrop()}>
                         <Image src="/images/menuIcon.svg" height={20} width={20}/>
                     </button>
                 </div>
@@ -30,7 +30,11 @@ const Navbar = () => {
                             
                         </li> */}
                         <li className={style.nav_item}>
-                            Type
+                            <Link href="/search/type">
+                                <a>
+                                    Type
+                                </a>
+                            </Link>
                         </li>
                         <li className={style.nav_item}>
                             <Link href="/search/pokedex">
@@ -40,7 +44,11 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li  className={style.nav_item}>
-                            Name
+                            <Link href="/search/name">
+                                <a>
+                                    Name
+                                </a>
+                            </Link>
                         </li>
                     </ul> : 
                     <ul className={style.nav_list_responsive} id="nav_list">
@@ -48,13 +56,25 @@ const Navbar = () => {
                             Generation
                         </li> */}
                         <li className={style.nav_item}>
-                            Type
+                            <Link href="/search/type">
+                                <a>
+                                    Type
+                                </a>
+                            </Link>
                         </li>
                         <li className={style.nav_item}>
-                            Pokedex
+                            <Link href="/search/pokedex">
+                                <a>
+                                    Pokedex
+                                </a>
+                            </Link>
                         </li>
                         <li  className={style.nav_item}>
-                            Name
+                            <Link href="/search/name">
+                                <a>
+                                    Name
+                                </a>
+                            </Link>
                         </li>
                     </ul>
                 }

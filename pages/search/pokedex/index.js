@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const Pokedexes = () => {
+const searchPokedex = () => {
     const [generations, setGenerations] = useState([])
 
     useEffect(() => {
@@ -19,4 +19,4 @@ const Pokedexes = () => {
     )
 }
 
-export default Pokedexes
+export default searchPokedex

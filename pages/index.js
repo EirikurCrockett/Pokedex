@@ -40,12 +40,14 @@ const Home = (props) => {
       </div>
 
       <div className={styles.card}>
-          <Link href="https://github.com/EirikurCrockett/pokedex_app">
-            <a className={styles.link}><h1 className={styles.cardHead}>Github</h1></a>
-          </Link>
         <div className={styles.cardBody}>
-            <p>Public Github repo for this application</p>
-            <p>Coming Soon</p>
+            <h1 className={styles.cardHead}>Github</h1>
+          <Link href="https://github.com/EirikurCrockett/Pokedex">
+            <a className={styles.link}><p>Repo for this project</p></a>
+          </Link>
+          <Link href="https://github.com/EirikurCrockett">
+            <a className={styles.link}><p>My Github page</p></a>
+          </Link>
         </div>
       </div>
     </div>
